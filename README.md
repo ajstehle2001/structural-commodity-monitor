@@ -50,7 +50,7 @@ All demo data in this repository is **synthetic or public**. No licensed data se
 
 - [x] Phase 1: methodology documentation + repo skeleton
 - [x] Phase 2: model core (IR, curve fit, residuals) + synthetic data generator + tests
-- [ ] Phase 3: pre-registration framework + decay rule as implemented mechanisms
+- [x] Phase 3: pre-registration framework + decay rule as implemented mechanisms
 - [ ] Phase 4: LLM extraction module with demo PDF
 - [ ] Phase 5: narrative scorer + worked example notebook + ADRs
 
@@ -61,4 +61,5 @@ This repo is methodology extracted from a private production system monitoring a
 ## License
 
 MIT
+
 
