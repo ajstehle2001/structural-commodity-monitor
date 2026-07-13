@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "structural-commodity-monitor"
-version = "0.2.0"
+version = "0.4.0"
 description = "Structural fair-value monitoring for physical commodity positions"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.4"]
+llm = ["anthropic>=0.40"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/monitor"]

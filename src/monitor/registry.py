@@ -35,6 +35,8 @@ class PreregistrationViolation(Exception):
 class TestDeclaration:
     """A frozen statement of what will be tested and how it will be judged."""
 
+    __test__ = False  # prevent pytest from collecting this as a test class
+
     test_id: str
     hypothesis: str          # plain-language claim under test
     specification: str       # exact procedure: data, transformation, statistic
@@ -54,6 +56,8 @@ class TestDeclaration:
 @dataclass(frozen=True)
 class TestOutcome:
     """A recorded result of running a declared test."""
+
+    __test__ = False  # prevent pytest from collecting this as a test class
 
     test_id: str
     attempt: int             # 1-based
@@ -155,3 +159,4 @@ class Registry:
         if len(results) >= MAX_ATTEMPTS:
             return "failed"
         return "undetermined"
+
