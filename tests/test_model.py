@@ -62,16 +62,29 @@ def test_spike_exclusion_stable_on_clean_market():
     assert stability.b_relative_change < 0.15
 
 
-def test_spiky_market_still_recovers_structure_after_exclusion():
+def test_removing_known_spike_weeks_recovers_structure():
+    """Fitting on weeks WITHOUT narrative contamination recovers ground truth.
+
+    Note what this test deliberately does NOT assert: that excluding the
+    highest-PRICE weeks improves accuracy. Top prices mix contamination
+    (spikes) with the most informative points on the true curve (low-IR
+    weeks), so price-based exclusion is a biased selector. Spike exclusion
+    in the model is a robustness DIAGNOSTIC (does the coefficient survive?),
+    not an accuracy improver. Here we use the generator's ground-truth
+    spike_component to exclude actual contamination, which genuinely should
+    recover the structural coefficients.
+    """
     spiky = SyntheticParams(
         spike_probability=0.03, spike_magnitude=0.6, n_weeks=520, seed=13
     )
     df = generate_weekly_series(spiky)
-    stability = fit_with_spike_exclusion(df["ir"], df["price"], exclude_top_fraction=0.10)
-    # The excluded fit should sit closer to ground truth than the full fit.
-    err_full = abs(stability.full.b - spiky.b)
-    err_excl = abs(stability.excluded.b - spiky.b)
-    assert err_excl <= err_full
+    clean_weeks = df[df["spike_component"] < 0.01]
+    contaminated_fit = fit_structural_curve(df["ir"], df["price"])
+    clean_fit = fit_structural_curve(clean_weeks["ir"], clean_weeks["price"])
+    err_contaminated = abs(contaminated_fit.b - spiky.b)
+    err_clean = abs(clean_fit.b - spiky.b)
+    assert err_clean < err_contaminated
+    assert clean_fit.b == pytest.approx(spiky.b, rel=0.15)
 
 
 def test_fit_raises_on_too_few_points():
@@ -88,3 +101,4 @@ def test_inventory_ratio_needs_full_window():
     assert ir.iloc[:51].isna().all()          # incomplete window -> NaN
     assert ir.iloc[51:].notna().all()
     assert ir.iloc[-1] == pytest.approx(6.0)  # 270 / 45
+
