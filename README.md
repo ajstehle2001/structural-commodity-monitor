@@ -1,10 +1,10 @@
 ﻿# structural-commodity-monitor
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![tests](https://github.com/ajstehle2001/structural-commodity-monitor/actions/workflows/test.yml/badge.svg)](https://github.com/ajstehle2001/structural-commodity-monitor/actions/workflows/test.yml)
 
 A reference implementation of a structural fair-value monitor for physical commodity positions — LLM-based data extraction, pre-registered statistical testing, and signal-decay governance. Based on F. Helmut Weymar's 1965 MIT thesis, *The Dynamics of the World Cocoa Market*.
 
-> **Status: Phase 1 — methodology and documentation.** Model core, pre-registration framework, extraction module, and worked examples land in subsequent phases. See [Roadmap](#roadmap).
+> Complete reference implementation: model core, pre-registration registry, decay rule, LLM extraction with validation boundaries, narrative scorer, and a runnable [worked example](examples/worked_example_output.md).
 
 ## The idea
 
@@ -44,7 +44,7 @@ All demo data in this repository is **synthetic or public**. No licensed data se
 ## Documentation
 
 - [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) — the theory of storage, the single state variable, the fitted curve, the sigma residual, and the evidence table including what failed.
-- [`docs/adr/`](docs/adr/) — Architecture Decision Records (landing in later phases).
+- [`docs/adr/`](docs/adr/) — Architecture Decision Records: independent sourcing, pre-registration as code, quarantine-never-autocorrect, explanation-not-prediction.
 
 ## Roadmap
 
@@ -52,7 +52,8 @@ All demo data in this repository is **synthetic or public**. No licensed data se
 - [x] Phase 2: model core (IR, curve fit, residuals) + synthetic data generator + tests
 - [x] Phase 3: pre-registration framework + decay rule as implemented mechanisms
 - [x] Phase 4: LLM extraction module (Protocol seam, validation trust boundary, quarantine-not-correct series checks)
-- [ ] Phase 5: narrative scorer + worked example notebook + ADRs
+- [x] Phase 5: narrative scorer + worked example + ADRs
+- [x] CI: GitHub Actions on Python 3.12/3.13
 
 ## Related work
 
@@ -61,6 +62,7 @@ This repo is methodology extracted from a private production system monitoring a
 ## License
 
 MIT
+
 
 
 
